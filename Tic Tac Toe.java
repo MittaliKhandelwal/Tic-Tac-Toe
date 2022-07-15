@@ -8,52 +8,52 @@ public class TicTacToe
   {
 
     final int SIZE = 3;
-    char[][] board = new char[SIZE][SIZE]; // game board
+    char[][] board = new char[SIZE][SIZE]; 
 
-    resetBoard(board); // initialize the board (with ' ' for all cells)
+    resetBoard(board);
 
-    // First, welcome message and display the board.
+
     System.out.println("===== WELCOME TO THE TIC-TAC-TOE GAME!! =====\n");
     showBoard(board);
 
-    // Then ask the user which symbol (x or o) he/she wants to play.
+
     System.out.print("  Which symbol do you want to play, \"x\" or \"o\"? ");
     char userSymbol = sc.next().toLowerCase().charAt(0);
     char compSymbol = (userSymbol == 'x') ? 'o' : 'x';
 
-    // Also ask whether or not the user wants to go first.
+
     System.out.println();
     System.out.print("  Do you want to go first (y/n)? ");
     char ans = sc.next().toLowerCase().charAt(0);
 
-    int turn;  // 0 -- the user, 1 -- the computer
-    int remainCount = SIZE * SIZE; // empty cell count
+    int turn; 
+    int remainCount = SIZE * SIZE;
 
-    // THE VERY FIRST MOVE.
+
     if (ans == 'y') {
       turn = 0;
-      userPlay(board, userSymbol); // user puts his/her first tic
+      userPlay(board, userSymbol); 
     }
     else {
       turn = 1;
-      compPlay(board, compSymbol); // computer puts its first tic
+      compPlay(board, compSymbol);
     }
-    // Show the board, and decrement the count of remaining cells.
+
     showBoard(board);
     remainCount--;
 
-    // Play the game until either one wins.
+
     boolean done = false;
-    int winner = -1;   // 0 -- the user, 1 -- the computer, -1 -- draw
+    int winner = -1;   
 
     while (!done && remainCount > 0) {
-      // If there is a winner at this time, set the winner and the done flag to true.
-      done = isGameWon(board, turn, userSymbol, compSymbol); // Did the turn won?
+
+      done = isGameWon(board, turn, userSymbol, compSymbol); 
 
       if (done)
-        winner = turn; // the one who made the last move won the game
+        winner = turn;
       else {
-        // No winner yet.  Find the next turn and play.
+
         turn = (turn + 1 ) % 2;
 
         if (turn == 0)
@@ -61,13 +61,12 @@ public class TicTacToe
         else
           compPlay(board, compSymbol);
 
-        // Show the board after one tic, and decrement the rem count.
         showBoard(board);
         remainCount--;
       }
     }
 
-    // Winner is found.  Declare the winner.
+
     if (winner == 0)
       System.out.println("\n** YOU WON.  CONGRATULATIONS!! **");
     else if (winner == 1)
@@ -91,15 +90,15 @@ public class TicTacToe
 
     System.out.println();
 
-    // First write the column header
+
     System.out.print("    ");
     for (int i = 0; i < numCol; i++)
       System.out.print(i + "   ");
     System.out.print('\n');
 
-    System.out.println(); // blank line after the header
+    System.out.println();
 
-    // The write the table
+
     for (int i = 0; i < numRow; i++) {
       System.out.print(i + "  ");
       for (int j = 0; j < numCol; j++) {
@@ -111,7 +110,7 @@ public class TicTacToe
       System.out.println();
 
       if (i != (numRow - 1)) {
-        // separator line
+
         System.out.print("   ");
         for (int j = 0; j < numCol; j++) {
           if (j != 0)
@@ -141,10 +140,10 @@ public class TicTacToe
 
   public static void compPlay(char[][] brd, char csym)
   {
-    // Find the first empty cell and put a tic there.
+
     for (int i = 0; i < brd.length; i++) {
       for (int j = 0; j < brd[0].length; j++) {
-        if (brd[i][j] == ' ') { // empty cell
+        if (brd[i][j] == ' ') { 
           brd[i][j] = csym;
           return;
         }
@@ -163,7 +162,7 @@ public class TicTacToe
     int i, j;
     boolean win = false;
 
-    // Check win by a row
+
     for (i = 0; i < brd.length && !win; i++) {
       for (j = 0; j < brd[0].length; j++) {
         if (brd[i][j] != sym)
@@ -173,7 +172,6 @@ public class TicTacToe
         win = true;
     }
 
-    // Check win by a column
     for (j = 0; j < brd[0].length && !win; j++) {
       for (i = 0; i < brd.length; i++) {
         if (brd[i][j] != sym)
@@ -183,7 +181,7 @@ public class TicTacToe
         win = true;
     }
 
-    // Check win by a diagonal (1)
+
     if (!win) {
       for (i = 0; i < brd.length; i++) {
         if (brd[i][i] != sym)
@@ -193,7 +191,7 @@ public class TicTacToe
         win = true;
     }
 
-    // Check win by a diagonal (2)
+
     if (!win) {
       for (i = 0; i < brd.length; i++) {
         if (brd[i][brd.length - 1 - i] != sym)
@@ -203,7 +201,7 @@ public class TicTacToe
         win = true;
     }
 
-    // Finally return win
+
     return win;
   }
 }
